@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import withAuth from "../utils/withAuth";
 import Sidebar from "../components/Sidebar";
 import AddNews from "../components/News/AddNews";
+import Search from "../common/Search";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -24,6 +25,7 @@ type NewsArticle = {
 
 const NewsPage = () => {
   const [news, setNews] = useState<NewsArticle[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const getNews = () => {
     axios
@@ -40,7 +42,7 @@ const NewsPage = () => {
     axios
       .delete(`https://6810f7e927f2fdac24138508.mockapi.io/news/${id}`)
       .then(() => {
-        getNews(); // Refresh news list after deletion
+        getNews();
       })
       .catch((err) => {
         console.error("Error deleting news", err);
@@ -60,7 +62,7 @@ const NewsPage = () => {
     status: string,
     meta_title: string,
     meta_description: string,
-    keywords: string,
+    keywords: string
   ) => {
     localStorage.setItem("id", id);
     localStorage.setItem("title", title);
@@ -81,14 +83,22 @@ const NewsPage = () => {
     getNews();
   }, []);
 
+  const filteredNews = news.filter((item) =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="flex justify-between">
       <Sidebar />
       <div className="flex flex-1 flex-col bg-gray-100 px-10 py-6">
         <div className="flex justify-between mb-10">
-          <h1 className="text-3xl font-bold gap-4">News</h1>
+          <h1 className="text-3xl font-bold">News</h1>
           <AddNews />
         </div>
+
+        {/* ✅ Search input here */}
+        <Search searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+
         <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
           <table className="min-w-full table-auto border-collapse text-sm text-gray-700">
             <thead className="bg-gray-200 text-left text-xs font-medium text-gray-500 uppercase">
@@ -109,7 +119,7 @@ const NewsPage = () => {
               </tr>
             </thead>
             <tbody>
-              {news.map((item) => (
+              {filteredNews.map((item) => (
                 <tr key={item.id} className="hover:bg-gray-50">
                   <td className="px-4 py-2">{item.title}</td>
                   <td className="px-4 py-2">{item.description}</td>
@@ -129,7 +139,6 @@ const NewsPage = () => {
                   <td className="px-4 py-2">{item.meta_title}</td>
                   <td className="px-4 py-2">{item.meta_description}</td>
                   <td className="px-4 py-2">{item.keywords}</td>
-                  
                   <td className="px-4 py-2 text-center">
                     <Link to="/updatenews">
                       <button
@@ -148,7 +157,7 @@ const NewsPage = () => {
                             item.status,
                             item.meta_title,
                             item.meta_description,
-                            item.keywords,
+                            item.keywords
                           )
                         }
                       >
