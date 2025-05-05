@@ -12,6 +12,7 @@ import UpdateCategories from "./components/Categories/UpdateCategories";
 import UpdateAuthor from "./components/Authors/UpdateAuthors";
 import AuthorForm from "./components/Authors/AuthorsForm";
 import NewsForm from "./components/News/NewsForm";
+import UpdateNews from "./components/News/UpdateNews";
 
 const App = () => {
   return (
@@ -28,6 +29,8 @@ const App = () => {
         <Route path="/authorsform" element={<AuthorForm />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/newsform" element={<NewsForm />} />
+        <Route path="/updatenews" element={<UpdateNews/>} />
+
       </Routes>
     </ProvideAuth>
   );

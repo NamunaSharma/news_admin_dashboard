@@ -15,11 +15,11 @@ const StatusChart = () => {
     { name: "Published", value: 0 },
   ]);
 
-  // Fetch data using axios
+
   useEffect(() => {
     const fetchNewsData = async () => {
       try {
-        // Replace with your actual API endpoint
+       
         const response = await axios.get(
           "https://6810f7e927f2fdac24138508.mockapi.io/news"
         );
@@ -44,16 +44,16 @@ const StatusChart = () => {
   }, []);
 
   return (
-    <div className="h-80 p-6">
-           <h2>News Status</h2>
-      <ResponsiveContainer width="50%" height="100%">
+    <div className="h-96 p-6 shadow-md   w-1/2">
+           <h2 className="text-slate-900 font-semibold">News Status</h2>
+      <ResponsiveContainer width="100%" height="100%" >
      
         <PieChart>
           <Pie
             data={statusData}
             dataKey="value"
             nameKey="name"
-            cx="20%"
+            cx="50%"
             cy="50%"
             outerRadius="70%"
             label={({ name, percent }) =>
@@ -74,7 +74,7 @@ const StatusChart = () => {
               borderColor: "#4B5563",
             }}
           />
-          {/* <Legend /> */}
+          <Legend />
         </PieChart>
       </ResponsiveContainer>
     </div>

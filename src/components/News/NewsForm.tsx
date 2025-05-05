@@ -17,6 +17,7 @@ const NewsForm = () => {
     meta_title: "",
     meta_description: "",
     keywords: "",
+    created_at: "", 
   });
 
   const [categories, setCategories] = useState([""]);
@@ -24,14 +25,14 @@ const NewsForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    const timestamp = new Date().toISOString();
     if (!formData.title || !formData.description) {
       alert("Please fill out both the Title and Description.");
       return;
     }
-
+    const formDatatimestamp = { ...formData, created_at: timestamp };
     axios
-      .post("https://6810f7e927f2fdac24138508.mockapi.io/news", formData)
+      .post("https://6810f7e927f2fdac24138508.mockapi.io/news", formDatatimestamp)
       .then(() => {
         navigate("/news");
       });
@@ -53,9 +54,10 @@ const NewsForm = () => {
   }, []);
 
   return (
-    <div className="flex justify-between">
+    <div className="flex min-h-screen">
       <Sidebar />
-      <div className="flex-1 mx-auto p-6 bg-white rounded-md shadow-md">
+      <div className="flex flex-1 items-center justify-center bg-gray-100 p-6">
+        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl">
         <h2 className="text-2xl font-semibold text-center mb-4">
           Create News Article
         </h2>
@@ -294,6 +296,7 @@ const NewsForm = () => {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 };

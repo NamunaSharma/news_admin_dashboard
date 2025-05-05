@@ -32,11 +32,12 @@ const AuthorForm = () => {
   };
 
   return (
-    <div className="flex justify-between">
+    <div className="flex min-h-screen">
       <Sidebar />
-      <div className="bg-white flex flex-1 flex-col bg-gray-100 px-10 py-6">
+      <div className="flex flex-1 items-center justify-center bg-gray-100 p-6">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl">
         <h2 className="text-sky-600 text-2xl font-bold mb-6">Add New Author</h2>
-        <form className="w-full max-w-96" onSubmit={handleSubmit}>
+        <form className="space-y-4 " onSubmit={handleSubmit}>
           <div>
             <label className="block text-gray-700 mb-2">Name</label>
             <input
@@ -90,6 +91,7 @@ const AuthorForm = () => {
             Save Author
           </button>
         </form>
+        </div>
       </div>
     </div>
   );

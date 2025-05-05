@@ -7,7 +7,7 @@ type CardProps = {
 
 const Card = ({ name, value }: CardProps) => {
   return (
-    <div className="bg-blue-950 p-6 rounded-xl shadow-lg flex flex-col items-center justify-center text-white m-4">
+    <div className="bg-[#1B1F3B] p-6 rounded-xl flex flex-col items-center justify-center text-white m-4 border-orange-700 shadow-md shadow-orange-800">
       <span className="text-sm font-medium text-gray-200">{name}</span>
       <p className="mt-2 text-3xl font-semibold">{value}</p>
     </div>
